@@ -142,13 +142,13 @@ class KodiPlayer(KodiUtils.kodi_player_class()):
                 break
         del monitor
         Logger.debug('tracking progress finished')
-        
+
     def get_subtitles(self):
         try:
             from clouddrive.common.remote.request import Request
             from clouddrive.common.service.download import DownloadServiceUtil
             response = Request(self.getPlayingFile()+'?subtitles', None).request_json()
-            if response and 'driveid' in response and 'subtitles' in response: 
+            if response and 'driveid' in response and 'subtitles' in response:
                 driveid = response['driveid']
                 subtitles = response['subtitles']
                 for subtitle in subtitles:
