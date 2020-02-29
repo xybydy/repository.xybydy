@@ -238,7 +238,7 @@ class ExportService(object):
                         new_path += '.strm'
                         ExportManager.create_strm(export['driveid'], change, new_path, content_type, 'plugin://%s/' % self.addonid)
                     else:
-                        ExportManager.create_nfo(export['driveid'], change, Utils.unicode(changed_item_name),new_path)
+                        ExportManager.create_nfo(changed_item_id, export['item_driveid'], new_path, self.provider)
                     if change_type != 'retry':
                         ExportManager.add_item_info(items_info, changed_item_id, Utils.unicode(changed_item_name), new_path, parent_id, item_type)
         Logger.debug('change type: %s ' % Utils.str(change_type))

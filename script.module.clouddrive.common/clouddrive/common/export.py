@@ -26,7 +26,6 @@ import os
 import urllib
 
 from clouddrive.common.remote.request import Request
-from clouddrive.common.service.download import DownloadServiceUtil
 from clouddrive.common.ui.logger import Logger
 from clouddrive.common.ui.utils import KodiUtils
 from clouddrive.common.utils import Utils
@@ -122,13 +121,13 @@ class ExportManager(object):
         return True
 
     @staticmethod
-    def create_nfo(driveid, item, item_name, nfo_path):
-        item_enc = urllib.quote_plus(item_name.encode('utf-8'))
-        dl_url = DownloadServiceUtil.download_item(driveid, item, item_enc)
+    def create_nfo(item_id, item_driveid, nfo_path, provider):
+        url = provider.get_item(item_driveid=item_driveid, item_id=item_id, include_download_info = True)["download_info"]["url"]
+        headers = {"Authorization":"Bearer %s"%provider.get_access_tokens()['access_token']}
         try:
-            response = Request(dl_url, None).request()
+            response = Request(url, None, headers).request()
         except:
-            Logger.error('Error on request to: %s' % dl_url)
+            Logger.error('Error on request to: %s' % url)
             return False
         f = None
         try:
@@ -150,3 +149,4 @@ class ExportManager(object):
         finally:
             if f:
                 f.close()
+                
