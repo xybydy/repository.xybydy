@@ -1,3 +1,5 @@
+Fatih
+
 # BASIC - How to setup for hosting on GitHub Pages
 
 In order to follow this tutorial, first fork this repository, and then clone your newly forked copy locally.
